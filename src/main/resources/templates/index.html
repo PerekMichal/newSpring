@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<center>
+    <h1>Witaj swiecie jestem templatka</h1>
+    <p th:text="${someString == 'a'} ? 'jest po 16' : 'jest przed 16' "></p>
+
+    <form action="#" th:action="@{/data}" method="post">
+
+        <p><input type="text" th:name="name"></p>
+        <p><input type="submit" value="Wyslij"></p>
+
+    </form>
+
+</center>
+
+
+</body>
+</htm l>

@@ -26,5 +26,6 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
