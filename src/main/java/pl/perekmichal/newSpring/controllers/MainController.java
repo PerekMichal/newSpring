@@ -3,16 +3,15 @@ package pl.perekmichal.newSpring.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import pl.perekmichal.newSpring.models.forms.PersonForm;
 import pl.perekmichal.newSpring.models.SimpleBean;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.logging.Logger;
 
 @Controller
 public class MainController {
@@ -22,7 +21,6 @@ public class MainController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-
     public String main(Model model) {
 
         ZonedDateTime now = LocalDateTime.now().atZone(ZoneId.of("Europe/Paris"));
@@ -39,9 +37,35 @@ public class MainController {
 
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public String data(@RequestParam(value = "name", required = false) String nameFromForm)  {
-        return "twoje imię to: " + nameFromForm;
+    public String data(@RequestParam(value = "name") String name,
+                       @RequestParam(value = "lastName") String lastName) {
+
+        return name + " " + lastName;
+    }
+
+    @RequestMapping(value = "/newform", method = RequestMethod.GET)
+    public String newform(Model model){
+        model.addAttribute("personObject", new PersonForm());
+        return "form";
+    }
+
+    @RequestMapping(value = "/newform", method = RequestMethod.POST)
+    public String newformPost(@ModelAttribute("personObject") @Valid PersonForm personForm, BindingResult result){
+        if (result.hasErrors()){
+            return "form";
+        }
+        return "result";
     }
 
 
+    private  void  testBuilder () {
+        PersonForm personForm = new PersonForm.Builder("michał" )
+                .age(27)
+                .email("test@test.com")
+                .lastName("perek")
+                .number("8888")
+                .build();
+
+        personForm.getAge();
+    }
 }

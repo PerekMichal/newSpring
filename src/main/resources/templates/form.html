@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <center>
+        <form action="#" th:action="@{/newform}" th:object="${personObject}" method="post">
+            <p>Imie: <input type="text" th:field="*{name}"><sapn th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error ex.</sapn></p>
+            <p>Nazwisko: <input type="text" th:field="*{lastname}"><sapn th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">lastname error ex.</sapn></p>
+            <p>Wiek: <input type="number" th:field="*{age}"><sapn th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error ex.</sapn></p>
+            <p>Numer: <input type="text" th:field="*{number}"><sapn th:if="${#fields.hasErrors('number')}" th:errors="*{number}">number error ex.</sapn></p>
+            <p>Email: <input type="email" th:field="*{email}"><sapn th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error ex.</sapn></p>
+            <p><button type="submit">WYSLIJ</button></p>
+
+        </form>
+    </center>
+
+</body>
+</html>

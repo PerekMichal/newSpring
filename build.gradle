@@ -7,11 +7,12 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.springframework:springloaded:1.2.6.RELEASE")
 	}
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 group = 'pl.perekmichal'
@@ -22,9 +23,17 @@ repositories {
 	mavenCentral()
 }
 
+idea {
+	module {
+		inheritOutputDirs = false
+		outputDir =file("$buildDir/classes/main/")
+	}
+}
+
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
