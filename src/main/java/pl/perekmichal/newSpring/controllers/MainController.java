@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.perekmichal.newSpring.PersonRepository;
+import pl.perekmichal.newSpring.models.Person;
 import pl.perekmichal.newSpring.models.forms.PersonForm;
-import pl.perekmichal.newSpring.models.SimpleBean;
+
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -17,7 +19,7 @@ import java.time.ZonedDateTime;
 public class MainController {
 
     @Autowired
-    SimpleBean simpleBean;
+    PersonRepository personRepository;
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -54,6 +56,9 @@ public class MainController {
         if (result.hasErrors()){
             return "form";
         }
+        Person personObject = new Person(personForm);
+        personRepository.save(personObject);
+
         return "result";
     }
 
